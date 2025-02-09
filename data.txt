@@ -1,53 +1,128 @@
-In one of my previous articles, we saw an overview of a simple Retrieval Augmented Generation(RAG) pipeline. We also saw about Chunking which is part of the data ingestion step. Data ingestion is not complete without chunking, embedding and storing in a Vector DB.
+### **Introduction to Geology**  
+Geology is the study of the Earth, its materials, the processes acting upon them, and the history of the planet and its life forms since its origin. This field plays a crucial role in understanding natural resources, environmental changes, and hazards such as earthquakes, volcanic eruptions, and landslides.
 
-Though data input to a RAG pipeline can be of several types, the most common input turns out to be PDF. Unlike HTML, JSON, or Markdown which are structured, PDFs are unstructured documents. So, even before we chunk the data from PDF documents, we need to parse them as shown in the figure above.
+### 1. Earth's Layers and Composition 
+The Earth is composed of several layers, each with distinct properties:  
 
-What is PDF parsing?
-PDF parsing is extracting and interpreting information from PDF (Portable Document Format) files. It involves analyzing the structure and content of a PDF file to extract meaningful information, such as text, images, tables, and metadata.
+#### A. Crust  
+- The outermost layer of the Earth.  
+- Made up of solid rock, primarily granite (continental crust) and basalt (oceanic crust).  
+- Thickness: **5-70 km** (thin under oceans, thicker under continents).  
+- It contains minerals and resources such as quartz, feldspar, and iron ores.  
 
-The purpose of PDF parsing can be severalfold such as searching for text and converting the PDF to a structured document such as HTML, Markdown, etc. However, our intent here is mainly to extract valuable information for training LLMs or for RAG. So, we will extract text, tables, images, graphics, and metadata.
+#### **B. Mantle**  
+- Located beneath the crust, it extends to about **2,900 km** deep.  
+- Made up of semi-solid rock, primarily composed of silicate minerals like **olivine** and **pyroxene**.  
+- Convection currents in the mantle drive **plate tectonics**.  
 
-Challenges with PDF parsing
-While HTML documents are hierarchical representations with well-defined tags like <img> or <title>, the internal structure of PDF documents is optimized for preserving visual consistency. In other words, PDF consists of a series of instructions to display symbols. This gives birth the a whole new level of challenge when dealing with PDF documents.
+#### C. Outer Core  
+- A liquid layer composed of **iron** and **nickel**.  
+- Creates the Earth’s **magnetic field** through the movement of molten metals.  
 
-The first challenge is in identifying the layout of the page. The second challenge lies in extracting varied data types like tables, images, or text from the pdf.
+#### D. Inner Core  
+- The hottest part of the Earth, reaching temperatures of 5,000 - 6,000°C.  
+- A solid ball of iron and nickel, despite the high temperature, due to immense pressure.  
 
-PDFs vs HTML format
-Given the challenge of dealing with PDF documents compared to structured docs like JSON or HTML, a natural question could arise as to why we need PDFs. Some of the pros are highlighted in the below table and explained further down:
+---
 
+### 2. Plate Tectonics and Continental Drift 
+The Earth's crust is divided into **tectonic plates that float on the semi-fluid mantle. These plates move due to convection currents, leading to various geological activities.  
 
-A simple comparison of HTML vs PDF
-To keep it short, PDFs are secure and readily accessible with any device and operating system. They are easily compressible to convenient sizes. They’re easy to scan, and so, ideal for printing. Unlike HTML which loses its format across browsers or operating systems, PDFs preserve their format.
+#### A. Major Plate Boundaries
+1. Divergent Boundaries: Plates move apart, forming new crust. Example: Mid-Atlantic Ridge.  
+2. Convergent Boundaries: Plates collide, causing subduction or mountain formation. Example: Himalayas.  
+3. Transform Boundaries: Plates slide past each other, causing earthquakes. Example: San Andreas Fault.  
 
-PDFs are used to preserve the format and so are used when rigid layouts (think forms) need to be followed. They are mostly used when the content should be consumed rather than edited. Examples include course reading materials, company reports, etc which can be readily printed and distributed.
-
-PDF for LLMs and RAG
-The above advantages can quickly turn into challenges when it comes to LLMs and RAG! 😄
-
-Yes, needless to mention, organizations have historically stored their in-house data in PDF format. So, parsing PDFs becomes an inevitable step to prepare the data to feed the LLMs and RAG pipelines.
-
-PDF Parsing Methods
-There are three broad types of PDF parsing methods based on our approach to how we handle PDFs. They are,
-
-Rule-based Methods
-Rule-based parsing is also referred to as template-based. It follows predefined rules to extract information based on patterns or positions.
-
-A good example where rule-based parsing works is parsing forms. For example, an organization can use a standard template to enroll new employees. Rule-based parsing will work a charm for this use case. Another good example could be extracting data from invoices and updating expenses into an in-house database.
-
-Pipeline-based Methods
-Pipeline-based methods break down the pdf parsing task as a series of steps or tasks. For example, the first step could be to fix the blurriness or orientation of the page. The second step could do a layout analysis of both visual and semantic structural analysis identifying the location of images, table and text. For example, the page could be a double-column text instead of a single column. The third step could then extract tables, text, and images from the identified layout. The last step could be integrating the identified result to restore the page into an HTML or Markdown format.
-
-
-A simple schematic showing the possible different tasks in a pipeline-based approach to pdf parsing
-Learning-based Methods
-They are based on machine learning or deep learning models. Like any other learning-based method, they need some data for training and developing a model. They can be further divided into three categories namely, Deep learning-based and Small Model-based.
+#### B. Continental Drift Theory 
+- Proposed by Alfred Wegener in 1912.  
+- Suggested that continents were once joined together in a supercontinent called Pangaea.  
+- Over millions of years, continents drifted to their present locations.  
 
 
-Some commonly used learning based approaches to PDF parsing
-Some of the well-known approaches are shown in the above figure. They include Convolutional Neural Networks(CNNs), Optical Character Recognition models such as Tesseract from Google, Table Transformer from Microsft, and Detection and segmentation algorithms like Mask R-CNN for detecting the layout. Or a simple document classification model can be used to classify the type of document which can then be processed further with a pipeline.
+### **3. Rock Cycle and Types of Rocks**  
+Rocks are classified into three main types based on their formation:  
 
-Hybrid Methods.
-As the name suggests, they combine rule-based and learning-based methods to make the best of both worlds.
+#### **A. Igneous Rocks**  
+- Formed from the cooling and solidification of magma or lava.  
+- **Intrusive Igneous Rocks**: Formed inside the Earth (e.g., **granite**).  
+- **Extrusive Igneous Rocks**: Formed on the surface from lava (e.g., **basalt**, **pumice**).  
 
-Trade-off to consider
-While choosing an approach for building PDF parsing pipeline, some of the main considerations include the complexity of the documents, the computing power at our disposal, and the latency requirements of the system.
+#### **B. Sedimentary Rocks**  
+- Formed from the compaction and cementation of sediments.  
+- Often contain **fossils** and provide historical records of past life.  
+- Examples: **Limestone**, **sandstone**, **shale**.  
+
+#### **C. Metamorphic Rocks**  
+- Formed when existing rocks are altered by heat, pressure, or chemical processes.  
+- Examples: **Marble** (from limestone), **schist**, **gneiss**.  
+
+---
+
+### **4. Minerals and Their Properties**  
+Minerals are naturally occurring inorganic substances with a specific chemical composition.  
+
+#### **A. Common Mineral Properties**  
+1. **Hardness** – Measured on the **Mohs scale** (e.g., diamond = 10, talc = 1).  
+2. **Luster** – How light reflects off the surface (e.g., metallic, glassy).  
+3. **Cleavage & Fracture** – The way a mineral breaks (smooth vs. irregular).  
+4. **Color & Streak** – The color of the mineral and its powdered form.  
+
+#### **B. Important Minerals in Geology**  
+- **Quartz** – Found in many rock types, used in glassmaking.  
+- **Feldspar** – Most abundant mineral group, used in ceramics.  
+- **Calcite** – Found in limestone, reacts with acid.  
+- **Hematite & Magnetite** – Major iron ores.  
+
+---
+
+### **5. Geological Time Scale and Fossils**  
+The Earth's history is divided into major time units based on geological events and fossil records.  
+
+#### **A. Eons, Eras, and Periods**  
+- **Precambrian (4.6 billion – 541 million years ago)** – Earliest life forms.  
+- **Paleozoic Era (541 – 252 million years ago)** – Marine life, first land plants.  
+- **Mesozoic Era (252 – 66 million years ago)** – Age of dinosaurs.  
+- **Cenozoic Era (66 million years ago – Present)** – Age of mammals, modern continents.  
+
+#### **B. Fossils and Their Importance**  
+- Fossils are preserved remains of ancient life.  
+- Used to determine the **relative age** of rocks.  
+- Help in studying **evolution** and past environments.  
+
+---
+
+### **6. Natural Disasters and Geological Hazards**  
+
+#### **A. Earthquakes**  
+- Caused by the movement of tectonic plates.  
+- Measured on the **Richter scale** or **Moment Magnitude Scale (Mw)**.  
+- Seismic waves detected using **seismographs**.  
+
+#### **B. Volcanoes**  
+- Formed by magma rising to the surface.  
+- Types:
+  - **Shield Volcanoes** – Broad, slow eruptions (e.g., Hawaii).  
+  - **Stratovolcanoes** – Explosive eruptions (e.g., Mount St. Helens).  
+  - **Cinder Cone Volcanoes** – Small, steep cones.  
+
+#### **C. Landslides**  
+- Rapid movement of rock and soil due to gravity.  
+- Triggered by earthquakes, heavy rain, or human activity.  
+
+#### **D. Tsunamis**  
+- Large sea waves caused by underwater earthquakes or volcanic eruptions.  
+- Can travel at speeds over **800 km/h (500 mph)**.  
+
+---
+
+### **7. Geological Resources and Human Impact**  
+
+#### **A. Natural Resources**  
+- **Fossil Fuels**: Coal, oil, and natural gas formed from ancient organic matter.  
+- **Metallic Minerals**: Iron, copper, gold, and aluminum.  
+- **Non-Metallic Minerals**: Sand, gravel, gypsum (for construction).  
+
+#### **B. Environmental Impact**  
+- Deforestation & Mining**: Leads to soil erosion and habitat loss.  
+- Climate Change: Burning fossil fuels increases CO₂ levels.  
+- Conservation Efforts: Sustainable mining and renewable energy. 
