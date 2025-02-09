@@ -47,20 +47,31 @@ def listen():
             print("Could not request results, check your internet connection.")
             return None
 
+def introduce_ai():
+    """Introduce the AI assistant upon startup."""
+    intro_message = ("Hello, I'm GKF. "
+                     "I'm a personalized AI assistant created by George, "
+                     "trained on custom geology data to give you tailored answers "
+                     "on geological questions.")
+    print(intro_message)
+    speak(intro_message)
+
 def chatbot():
     """Listen to user's question, get AI response, and speak it out."""
-    question = listen()
-    if question:
-        template = f"""
-        You are an AI-powered chatbot designed to provide 
-        information and assistance based on the provided context.    
-        Do not make things up.   
-        Context: {data}
-        Question: {question}
-        """
-        response = deepseek_chain.invoke(template)
-        print(f"AI: {response}")
-        speak(response)
+    introduce_ai()  # Introduce AI before starting the conversation
+    while True:
+        question = listen()
+        if question:
+            template = f"""
+            You are an AI-powered chatbot designed to provide 
+            information and assistance based on the provided context.    
+            Do not make things up.   
+            Context: {data}
+            Question: {question}
+            """
+            response = deepseek_chain.invoke(template)
+            print(f"AI: {response}")
+            speak(response)
 
 if __name__ == "__main__":
     chatbot()
